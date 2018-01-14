@@ -690,7 +690,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\thegr\Desktop\CW2\MAPPS\data\albumimages\noimage.jpg"/>
+              <Image iconType="3" name="/images/noimage.jpg"/>
             </Property>
           </Properties>
           <AccessibilityProperties>

@@ -441,7 +441,7 @@ public class GUI extends javax.swing.JFrame {
         );
 
         albumImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        albumImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\thegr\\Desktop\\CW2\\MAPPS\\data\\albumimages\\noimage.jpg")); // NOI18N
+        albumImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/noimage.jpg"))); // NOI18N
 
         albumTracks.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
