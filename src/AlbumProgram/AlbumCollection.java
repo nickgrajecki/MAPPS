@@ -79,7 +79,8 @@ public class AlbumCollection {
      * variable biggestAlbum; if so, it assigns the larger value to the variable
      */
     public Album getMostTracks() {
-        Album biggestAlbum = new Album("Placeholder : Album");
+        //Set it to the first album in the collection by default
+        Album biggestAlbum = aCollection.get(0);
         for (int i = 0; i < aCollection.size(); i++) {
             Album tempAlbum = aCollection.get(i);
             if (tempAlbum.totalTracks() > biggestAlbum.totalTracks()) {
@@ -96,7 +97,7 @@ public class AlbumCollection {
      * assigned to longestTrack.
      */
     public Track getLongestTrack() {
-        Track longestTrack = new Track("0:00:01 - Default Track");
+        Track longestTrack = new Track("0:00:00 - Default Track");
         Album longAlbum = new Album("Placeholder : Album");
         for (int i = 0; i < aCollection.size(); i++) {
             Album album = aCollection.get(i);
@@ -121,9 +122,8 @@ public class AlbumCollection {
 
     @Override
     public String toString() {
-        return "Album Collection consists of:\n\n"
-                + aCollection.toString().replaceAll(", ", "\n")
-                        .replaceAll("\\[", "")
-                        .replaceAll("\\]", "");
+        return aCollection.toString().replaceAll(", ", "\n")
+                .replaceAll("\\[", "")
+                .replaceAll("\\]", "");
     }
 }

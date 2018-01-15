@@ -43,7 +43,7 @@ public class Track {
     }
 
     public static void main(String[] args) { //Test harness
-        Track newtrack = new Track("0:04:38 - Misty Mountain Hop");
+        Track newtrack = new Track("00:04:38 - Misty Mountain Hop");
         System.out.println(newtrack.getDuration() + " - " 
                 + newtrack.getTitle());
     }

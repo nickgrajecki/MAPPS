@@ -59,7 +59,8 @@ public class Album implements Comparable {
     }
 
     public String getAll() { //Retrieve all details, including tracks
-        return artist + " : " + albumTitle + "\n" + tracks;
+        return artist + " : " + albumTitle + "\n" + tracks.toString()
+                .replaceAll("\\[","").replaceAll("\\]", "");
     }
 
     /**
