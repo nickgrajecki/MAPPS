@@ -5,8 +5,10 @@ import AlbumProgram.AlbumCollection;
 import AlbumProgram.Playlist;
 import AlbumProgram.PlaylistTrack;
 import AlbumProgram.Track;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -758,15 +760,18 @@ public class GUI extends javax.swing.JFrame {
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 selectedFile = jfc.getSelectedFile();
                 System.out.println(selectedFile.getAbsolutePath());
-                Scanner collectionScanner = null;
+                BufferedReader collectionScanner = null;
                 try {
-                    collectionScanner = new Scanner(selectedFile);
+                    collectionScanner = new BufferedReader(new FileReader(selectedFile));
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if (collectionScanner.nextLine().contains(""))
                 loadCollection = new AlbumCollection();
-                loadCollection.addAlbums(collectionScanner);
+                try {
+                    loadCollection.addAlbums(collectionScanner);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ArrayList albums = loadCollection.getCollection();
                 Collections.sort(albums, Album.AlbumComparator);
                 for (int i = 0; i < albums.size(); i++) {
@@ -818,7 +823,7 @@ public class GUI extends javax.swing.JFrame {
                 try {
                     selectedFile = jfc.getSelectedFile();
                     System.out.println(selectedFile.getAbsolutePath());
-                    Scanner playlistScanner = new Scanner(selectedFile);
+                    BufferedReader playlistScanner = new BufferedReader(new FileReader(selectedFile));
                     loadPlaylist = new Playlist(loadCollection);
                     loadPlaylist.addPlaylistTracks(playlistScanner);
                     int count = 0;
@@ -840,6 +845,8 @@ public class GUI extends javax.swing.JFrame {
                         plDuration.setText(loadPlaylist.totalDuration().toString());
                     }
                 } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -961,14 +968,18 @@ public class GUI extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             selectedFile = jfc.getSelectedFile();
             System.out.println(selectedFile.getAbsolutePath());
-            Scanner collectionScanner = null;
+            BufferedReader collectionScanner = null;
             try {
-                collectionScanner = new Scanner(selectedFile);
+                collectionScanner = new BufferedReader(new FileReader(selectedFile));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             loadCollection = new AlbumCollection();
-            loadCollection.addAlbums(collectionScanner);
+            try {
+                loadCollection.addAlbums(collectionScanner);
+            } catch (IOException ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ArrayList albums = loadCollection.getCollection();
             Collections.sort(albums, Album.AlbumComparator);
             for (int i = 0; i < albums.size(); i++) {
@@ -993,14 +1004,18 @@ public class GUI extends javax.swing.JFrame {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             selectedFile = jfc.getSelectedFile();
             System.out.println(selectedFile.getAbsolutePath());
-            Scanner collectionScanner = null;
+            BufferedReader collectionScanner = null;
             try {
-                collectionScanner = new Scanner(selectedFile);
+                collectionScanner = new BufferedReader(new FileReader(selectedFile));
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
             loadCollection = new AlbumCollection();
-            loadCollection.addAlbums(collectionScanner);
+            try {
+                loadCollection.addAlbums(collectionScanner);
+            } catch (IOException ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             ArrayList albums = loadCollection.getCollection();
             Collections.sort(albums, Album.AlbumComparator);
             for (int i = 0; i < albums.size(); i++) {

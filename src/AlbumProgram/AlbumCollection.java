@@ -1,5 +1,7 @@
 package AlbumProgram;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -27,10 +29,10 @@ public class AlbumCollection {
      *
      * @param f points to the scanner used to read the file
      */
-    public void addAlbums(Scanner f) {
+    public void addAlbums(BufferedReader br) throws IOException {
         Album newAlbum = null;
-        while (f.hasNextLine()) {
-            String nextLine = f.nextLine();
+        String nextLine;
+        while ((nextLine = br.readLine()) != null) {
             if (nextLine.contains(" : ")) {
                 if (newAlbum != null) { //Ignore empty albums
                     aCollection.add(newAlbum);

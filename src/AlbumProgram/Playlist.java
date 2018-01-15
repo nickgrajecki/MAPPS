@@ -1,7 +1,9 @@
 package AlbumProgram;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,9 +30,9 @@ public class Playlist {
      * the corresponding AlbumCollection - if a match is made, it then uses the
      * album object from AlbumCollection to create a new PlaylistTrack object.
      */
-    public void addPlaylistTracks(Scanner f) {
-        while (f.hasNextLine()) {
-            String nextLine = f.nextLine();
+    public void addPlaylistTracks(BufferedReader br) throws IOException {
+        String nextLine;
+        while ((nextLine = br.readLine()) != null) {
             String[] playlistDivide = nextLine.split(" \\(");
             String track = playlistDivide[0];
             Album trackAlbum

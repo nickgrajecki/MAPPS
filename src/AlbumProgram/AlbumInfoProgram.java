@@ -1,6 +1,8 @@
 package AlbumProgram;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +20,8 @@ public class AlbumInfoProgram {
      */
     public static void main(String[] args) throws IOException {
         // First scan both text files 
-        Scanner playlistTxt = new Scanner(new File("data/playlist.txt"));
-        Scanner albumsTxt = new Scanner(new File("data/albums.txt"));
+        BufferedReader playlistTxt = new BufferedReader(new FileReader("data/playlist.txt"));
+        BufferedReader albumsTxt = new BufferedReader(new FileReader("data/albums.txt"));
 
         // Create and populate AlbumCollection, Playlist objects
         AlbumCollection ac1 = new AlbumCollection();
