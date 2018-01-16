@@ -5,8 +5,11 @@
  */
 package AlbumProgram;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.AfterClass;
@@ -46,9 +49,9 @@ public class AlbumCollectionTest {
      * Test of addAlbums method, of class AlbumCollection.
      */
     @Test
-    public void AddAlbums() throws FileNotFoundException {
+    public void AddAlbums() throws FileNotFoundException, IOException {
         System.out.println("addAlbums");
-        Scanner f = new Scanner(new File("data/albums.txt"));
+        BufferedReader f = new BufferedReader(new FileReader("data/albums.txt"));
         AlbumCollection instance = new AlbumCollection();
         instance.addAlbums(f);
     }

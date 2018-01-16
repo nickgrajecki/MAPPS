@@ -45,8 +45,9 @@ public class TrackTest {
     @Test
     public void GetDuration() {
         System.out.println("getDuration");
-        Track instance = new Track("00:05:08 - Misty Mountain Hop");
-        Duration expResult = new Duration(0,5,8);
+        Duration d1 = new Duration (0,5,8);
+        Track instance = new Track("Misty Mountain Hop", d1);
+        Duration expResult = d1;
         Duration result = instance.getDuration();
         assertEquals(expResult.toString(), result.toString());
     }
