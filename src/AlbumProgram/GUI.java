@@ -90,6 +90,12 @@ public class GUI extends javax.swing.JFrame {
         warningPT1 = new javax.swing.JLabel();
         warningPT2 = new javax.swing.JLabel();
         warningOK = new javax.swing.JButton();
+        notCollection = new javax.swing.JDialog();
+        notCLabel = new javax.swing.JLabel();
+        notCollectionButton = new javax.swing.JButton();
+        notPlaylist = new javax.swing.JDialog();
+        notPLabel = new javax.swing.JLabel();
+        notPlaylistButton = new javax.swing.JButton();
         collectionPanel = new javax.swing.JPanel();
         collectionScroll = new javax.swing.JScrollPane();
         cList = new JList(collectionModel);
@@ -403,6 +409,72 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(warningPT2)
                 .addGap(18, 18, 18)
                 .addComponent(warningOK)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        notCLabel.setText("This file is not a collection - please try a different file.");
+
+        notCollectionButton.setText("OK");
+        notCollectionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notCollectionButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout notCollectionLayout = new javax.swing.GroupLayout(notCollection.getContentPane());
+        notCollection.getContentPane().setLayout(notCollectionLayout);
+        notCollectionLayout.setHorizontalGroup(
+            notCollectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notCollectionLayout.createSequentialGroup()
+                .addGroup(notCollectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(notCollectionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(notCLabel))
+                    .addGroup(notCollectionLayout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(notCollectionButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        notCollectionLayout.setVerticalGroup(
+            notCollectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notCollectionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(notCLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notCollectionButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        notPLabel.setText("This file is not a playlist - please try a different file.");
+
+        notPlaylistButton.setText("OK");
+        notPlaylistButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notPlaylistButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout notPlaylistLayout = new javax.swing.GroupLayout(notPlaylist.getContentPane());
+        notPlaylist.getContentPane().setLayout(notPlaylistLayout);
+        notPlaylistLayout.setHorizontalGroup(
+            notPlaylistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notPlaylistLayout.createSequentialGroup()
+                .addGroup(notPlaylistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(notPlaylistLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(notPLabel))
+                    .addGroup(notPlaylistLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(notPlaylistButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        notPlaylistLayout.setVerticalGroup(
+            notPlaylistLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notPlaylistLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(notPLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notPlaylistButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -761,21 +833,37 @@ public class GUI extends javax.swing.JFrame {
                 selectedFile = jfc.getSelectedFile();
                 System.out.println(selectedFile.getAbsolutePath());
                 BufferedReader collectionScanner = null;
+                Boolean isCollection = true;
                 try {
                     collectionScanner = new BufferedReader(new FileReader(selectedFile));
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                loadCollection = new AlbumCollection();
-                try {
-                    loadCollection.addAlbums(collectionScanner);
+                    collectionScanner.readLine(); //Ignore first line, proceed to 2
+                    String secondLine = collectionScanner.readLine();
+                    if (secondLine.contains("-")) {
+                        isCollection = true;
+                    } else {
+                        isCollection = false;
+                    }
+                    collectionScanner.close();
                 } catch (IOException ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                ArrayList albums = loadCollection.getCollection();
-                Collections.sort(albums, Album.AlbumComparator);
-                for (int i = 0; i < albums.size(); i++) {
-                    collectionModel.addElement(albums.get(i));
+                if (isCollection) {
+                    loadCollection = new AlbumCollection();
+                    try {
+                        collectionScanner = new BufferedReader(new FileReader(selectedFile));
+                        loadCollection.addAlbums(collectionScanner);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ArrayList albums = loadCollection.getCollection();
+                    Collections.sort(albums, Album.AlbumComparator);
+                    for (int i = 0; i < albums.size(); i++) {
+                        collectionModel.addElement(albums.get(i));
+                    }
+                } else {
+                    notCollection.pack();
+                    notCollection.setLocationRelativeTo(centrePanel);
+                    notCollection.setVisible(true);
                 }
             }
         }
@@ -820,12 +908,33 @@ public class GUI extends javax.swing.JFrame {
             File selectedFile;
             int returnValue = jfc.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
+                Boolean isPlaylist = true;
+                BufferedReader playlistScanner = null;
+                selectedFile = jfc.getSelectedFile();
+                System.out.println(selectedFile.getAbsolutePath());
                 try {
-                    selectedFile = jfc.getSelectedFile();
-                    System.out.println(selectedFile.getAbsolutePath());
-                    BufferedReader playlistScanner = new BufferedReader(new FileReader(selectedFile));
+                    playlistScanner = new BufferedReader(new FileReader(selectedFile));
+                    playlistScanner.readLine(); //Ignore first line, proceed to 2
+                    String secondLine = playlistScanner.readLine();
+                    if (!secondLine.contains("-")) {
+                        isPlaylist = true;
+                    } else {
+                        isPlaylist = false;
+                    }
+                    playlistScanner.close();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (isPlaylist) {
                     loadPlaylist = new Playlist(loadCollection);
-                    loadPlaylist.addPlaylistTracks(playlistScanner);
+                    try {
+                        playlistScanner = new BufferedReader(new FileReader(selectedFile));
+                        loadPlaylist.addPlaylistTracks(playlistScanner);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     int count = 0;
                     for (int i = 0; i < loadPlaylist.totalTracks(); i++) {
                         if (collectionModel.contains(loadPlaylist.getPlaylistTrack(i).getTrackAlbum())) {
@@ -844,10 +953,10 @@ public class GUI extends javax.swing.JFrame {
                         plName.setText(selectedFile.getName().replace(".txt", ""));
                         plDuration.setText(loadPlaylist.totalDuration().toString());
                     }
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                } else {
+                    notPlaylist.setLocationRelativeTo(centrePanel);
+                    notPlaylist.pack();
+                    notPlaylist.setVisible(true);
                 }
             }
         }
@@ -1005,21 +1114,37 @@ public class GUI extends javax.swing.JFrame {
             selectedFile = jfc.getSelectedFile();
             System.out.println(selectedFile.getAbsolutePath());
             BufferedReader collectionScanner = null;
+            Boolean isCollection = true;
             try {
                 collectionScanner = new BufferedReader(new FileReader(selectedFile));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            loadCollection = new AlbumCollection();
-            try {
-                loadCollection.addAlbums(collectionScanner);
+                collectionScanner.readLine(); //Ignore first line, proceed to 2
+                String secondLine = collectionScanner.readLine();
+                if (secondLine.contains("-")) {
+                    isCollection = true;
+                } else {
+                    isCollection = false;
+                }
+                collectionScanner.close();
             } catch (IOException ex) {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-            ArrayList albums = loadCollection.getCollection();
-            Collections.sort(albums, Album.AlbumComparator);
-            for (int i = 0; i < albums.size(); i++) {
-                collectionModel.addElement(albums.get(i));
+            if (isCollection) {
+                loadCollection = new AlbumCollection();
+                try {
+                    collectionScanner = new BufferedReader(new FileReader(selectedFile));
+                    loadCollection.addAlbums(collectionScanner);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                ArrayList albums = loadCollection.getCollection();
+                Collections.sort(albums, Album.AlbumComparator);
+                for (int i = 0; i < albums.size(); i++) {
+                    collectionModel.addElement(albums.get(i));
+                }
+            } else {
+                notCollection.pack();
+                notCollection.setLocationRelativeTo(centrePanel);
+                notCollection.setVisible(true);
             }
         }
         collectionPopup.setVisible(false);
@@ -1036,6 +1161,14 @@ public class GUI extends javax.swing.JFrame {
     private void albumTracksValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_albumTracksValueChanged
         //pList.clearSelection();
     }//GEN-LAST:event_albumTracksValueChanged
+
+    private void notCollectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notCollectionButtonActionPerformed
+        notCollection.setVisible(false);
+    }//GEN-LAST:event_notCollectionButtonActionPerformed
+
+    private void notPlaylistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notPlaylistButtonActionPerformed
+        notPlaylist.setVisible(false);
+    }//GEN-LAST:event_notPlaylistButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1114,6 +1247,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton mergeButton;
     private javax.swing.JPanel newPlaylistPanel;
     private javax.swing.JScrollPane newPlaylistScroll;
+    private javax.swing.JLabel notCLabel;
+    private javax.swing.JDialog notCollection;
+    private javax.swing.JButton notCollectionButton;
+    private javax.swing.JLabel notPLabel;
+    private javax.swing.JDialog notPlaylist;
+    private javax.swing.JButton notPlaylistButton;
     private javax.swing.JLabel nowPlaying;
     private javax.swing.JList<PlaylistTrack> pList;
     private javax.swing.JLabel plDuration;
