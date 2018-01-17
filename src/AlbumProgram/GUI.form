@@ -59,6 +59,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\thegr\Desktop\CW2\MAPPS\data\down-arrow.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Click here to add your selected album track"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addAlbumTrackActionPerformed"/>
@@ -69,6 +70,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="2" name="C:\Users\thegr\Desktop\CW2\MAPPS\data\down-arrow.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Click here to add your selected Playlist Track"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPlaylistTrackActionPerformed"/>
@@ -245,6 +247,7 @@
             <Component class="javax.swing.JButton" name="clearButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear all tracks"/>
+                <Property name="toolTipText" type="java.lang.String" value="This clears all selected tracks from the list to the left"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearButtonActionPerformed"/>
@@ -598,13 +601,13 @@
     <Property name="rows" type="int" value="1"/>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel3">
+    <Container class="javax.swing.JPanel" name="mainPanel">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jPanel4" max="32767" attributes="0"/>
+                  <Component id="leftPanel" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                   <Component id="rightPanel" pref="281" max="32767" attributes="0"/>
               </Group>
@@ -614,7 +617,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel4" max="32767" attributes="0"/>
+                      <Component id="leftPanel" max="32767" attributes="0"/>
                       <Component id="rightPanel" pref="629" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -640,7 +643,7 @@
                           <Component id="nowPlaying" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="imagePanel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="totalDurationText" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="18" pref="18" max="18" attributes="0"/>
@@ -680,7 +683,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="imagePanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="artistText" min="-2" max="-2" attributes="0"/>
@@ -710,7 +713,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel2">
+            <Container class="javax.swing.JPanel" name="imagePanel">
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -773,6 +776,9 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JList" name="albumTracks">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="This is a list of all the tracks of an album"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="albumTracksValueChanged"/>
                   </Events>
@@ -788,6 +794,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="C:\Users\thegr\Desktop\CW2\MAPPS\data\stop-button.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Click this button to stop music playback"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="stopButtonMouseClicked"/>
@@ -798,6 +805,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="2" name="C:\Users\thegr\Desktop\CW2\MAPPS\data\play-button.png"/>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Click the button to start playing a track"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="playButtonMouseClicked"/>
@@ -814,7 +822,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel4">
+        <Container class="javax.swing.JPanel" name="leftPanel">
 
           <Layout>
             <DimensionLayout dim="0">
@@ -901,6 +909,7 @@
             <Component class="javax.swing.JButton" name="loadCButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load Collection"/>
+                <Property name="toolTipText" type="java.lang.String" value="Click here to select and upload an Album Collection file"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadCButtonActionPerformed"/>
@@ -911,6 +920,7 @@
             <Component class="javax.swing.JButton" name="loadPButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load Playlist"/>
+                <Property name="toolTipText" type="java.lang.String" value="Click here to choose and upload a Playlist file"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadPButtonActionPerformed"/>
@@ -933,6 +943,9 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JList" name="cList">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="This list contains all the albums from your file(s)"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="cListValueChanged"/>
                   </Events>
@@ -951,6 +964,9 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JList" name="pList">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="This list contains all the tracks from your uploaded Playlist file(s)"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="pListValueChanged"/>
                   </Events>

@@ -30,6 +30,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -96,9 +97,9 @@ public class GUI extends javax.swing.JFrame {
         notPlaylist = new javax.swing.JDialog();
         notPLabel = new javax.swing.JLabel();
         notPlaylistButton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
         rightPanel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        imagePanel = new javax.swing.JPanel();
         albumImage = new javax.swing.JLabel();
         artistText = new javax.swing.JLabel();
         albumText = new javax.swing.JLabel();
@@ -111,7 +112,7 @@ public class GUI extends javax.swing.JFrame {
         stopButton = new javax.swing.JLabel();
         playButton = new javax.swing.JLabel();
         nowPlaying = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        leftPanel = new javax.swing.JPanel();
         plDurationLabel = new javax.swing.JLabel();
         trackDurationLabel = new javax.swing.JLabel();
         loadCButton = new javax.swing.JButton();
@@ -131,6 +132,7 @@ public class GUI extends javax.swing.JFrame {
         createNewPlaylistDialog.setTitle("Create a new playlist");
 
         addAlbumTrack.setIcon(new javax.swing.ImageIcon("C:\\Users\\thegr\\Desktop\\CW2\\MAPPS\\data\\down-arrow.png")); // NOI18N
+        addAlbumTrack.setToolTipText("Click here to add your selected album track");
         addAlbumTrack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addAlbumTrackActionPerformed(evt);
@@ -138,6 +140,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         addPlaylistTrack.setIcon(new javax.swing.ImageIcon("C:\\Users\\thegr\\Desktop\\CW2\\MAPPS\\data\\down-arrow.png")); // NOI18N
+        addPlaylistTrack.setToolTipText("Click here to add your selected Playlist Track");
         addPlaylistTrack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPlaylistTrackActionPerformed(evt);
@@ -198,6 +201,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         clearButton.setText("Clear all tracks");
+        clearButton.setToolTipText("This clears all selected tracks from the list to the left");
         clearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearButtonActionPerformed(evt);
@@ -487,17 +491,17 @@ public class GUI extends javax.swing.JFrame {
         albumImage.setIcon(icon);
         albumImage.setMinimumSize(new java.awt.Dimension(225, 225));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
+        imagePanel.setLayout(imagePanelLayout);
+        imagePanelLayout.setHorizontalGroup(
+            imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imagePanelLayout.createSequentialGroup()
                 .addComponent(albumImage, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                 .addGap(36, 36, 36))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        imagePanelLayout.setVerticalGroup(
+            imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imagePanelLayout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addComponent(albumImage, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
         );
@@ -508,6 +512,7 @@ public class GUI extends javax.swing.JFrame {
 
         totalDurationText.setText("Duration:");
 
+        albumTracks.setToolTipText("This is a list of all the tracks of an album");
         albumTracks.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 albumTracksValueChanged(evt);
@@ -516,6 +521,7 @@ public class GUI extends javax.swing.JFrame {
         albumScroll.setViewportView(albumTracks);
 
         stopButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\thegr\\Desktop\\CW2\\MAPPS\\data\\stop-button.png")); // NOI18N
+        stopButton.setToolTipText("Click this button to stop music playback");
         stopButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 stopButtonMouseClicked(evt);
@@ -523,6 +529,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         playButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\thegr\\Desktop\\CW2\\MAPPS\\data\\play-button.png")); // NOI18N
+        playButton.setToolTipText("Click the button to start playing a track");
         playButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 playButtonMouseClicked(evt);
@@ -542,7 +549,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(nowPlaying, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(rightPanelLayout.createSequentialGroup()
                         .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(rightPanelLayout.createSequentialGroup()
                                 .addComponent(totalDurationText)
                                 .addGap(18, 18, 18)
@@ -573,7 +580,7 @@ public class GUI extends javax.swing.JFrame {
             rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(artistText)
@@ -603,6 +610,7 @@ public class GUI extends javax.swing.JFrame {
         trackDurationLabel.setText("Track Duration:");
 
         loadCButton.setText("Load Collection");
+        loadCButton.setToolTipText("Click here to select and upload an Album Collection file");
         loadCButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadCButtonActionPerformed(evt);
@@ -610,6 +618,7 @@ public class GUI extends javax.swing.JFrame {
         });
 
         loadPButton.setText("Load Playlist");
+        loadPButton.setToolTipText("Click here to choose and upload a Playlist file");
         loadPButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loadPButtonActionPerformed(evt);
@@ -618,6 +627,7 @@ public class GUI extends javax.swing.JFrame {
 
         plNameLabel.setText("Playlist Name:");
 
+        cList.setToolTipText("This list contains all the albums from your file(s)");
         cList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 cListValueChanged(evt);
@@ -625,6 +635,7 @@ public class GUI extends javax.swing.JFrame {
         });
         collectionScroll.setViewportView(cList);
 
+        pList.setToolTipText("This list contains all the tracks from your uploaded Playlist file(s)");
         pList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 pListValueChanged(evt);
@@ -632,28 +643,28 @@ public class GUI extends javax.swing.JFrame {
         });
         playlistScroll.setViewportView(pList);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
+        leftPanel.setLayout(leftPanelLayout);
+        leftPanelLayout.setHorizontalGroup(
+            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(collectionScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                     .addComponent(playlistScroll)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(leftPanelLayout.createSequentialGroup()
+                        .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(loadCButton)
                             .addComponent(loadPButton)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(leftPanelLayout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(leftPanelLayout.createSequentialGroup()
+                                        .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(trackDurationLabel)
                                             .addComponent(plDurationLabel))
                                         .addGap(28, 28, 28)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(plName, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                                             .addComponent(plDuration, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                             .addComponent(trackDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -662,11 +673,11 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {plDuration, plName});
+        leftPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {plDuration, plName});
 
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        leftPanelLayout.setVerticalGroup(
+            leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(collectionScroll)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -674,14 +685,14 @@ public class GUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playlistScroll)
                 .addGap(7, 7, 7)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
                         .addComponent(plNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(plDurationLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(trackDurationLabel))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
                         .addComponent(plName, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(plDuration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -692,27 +703,27 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {plDuration, plName, trackDuration});
+        leftPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {plDuration, plName, trackDuration});
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel3);
+        getContentPane().add(mainPanel);
 
         createPlaylist.setText("File");
         createPlaylist.addActionListener(new java.awt.event.ActionListener() {
@@ -797,6 +808,7 @@ public class GUI extends javax.swing.JFrame {
             collectionPopup.setVisible(true);
         } else {
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            jfc.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
             File selectedFile;
             int returnValue = jfc.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -872,6 +884,7 @@ public class GUI extends javax.swing.JFrame {
             playlistPopup.setVisible(true);
         } else {
             JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            jfc.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
             if (!playlistModel.isEmpty()) {
                 playlistModel.removeAllElements();
             }
@@ -960,8 +973,10 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_pListValueChanged
 
     private void stopButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stopButtonMouseClicked
-        mp3.close();
-        nowPlaying.setText("");
+        if (mp3 != null) {
+            mp3.close();
+            nowPlaying.setText("");
+        }
     }//GEN-LAST:event_stopButtonMouseClicked
 
     private void createPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPlaylistActionPerformed
@@ -1014,6 +1029,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
         int returnValue = jfc.showSaveDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File file = jfc.getSelectedFile();
@@ -1042,6 +1058,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void mergeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mergeButtonActionPerformed
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
         File selectedFile;
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -1078,6 +1095,7 @@ public class GUI extends javax.swing.JFrame {
         }
         collectionModel.removeAllElements();
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        jfc.setFileFilter(new FileNameExtensionFilter("*.txt", "txt"));
         File selectedFile;
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -1208,11 +1226,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JDialog createNewPlaylistDialog;
     private javax.swing.JMenu createPlaylist;
     private javax.swing.JMenuItem createPlaylistMenu;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel imagePanel;
+    private javax.swing.JPanel leftPanel;
     private javax.swing.JButton loadCButton;
     private javax.swing.JButton loadPButton;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JButton mergeButton;
     private javax.swing.JPanel newPlaylistPanel;
     private javax.swing.JScrollPane newPlaylistScroll;
